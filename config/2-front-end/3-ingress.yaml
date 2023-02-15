@@ -3,9 +3,10 @@ kind: VirtualServer
 metadata:
   name: web-admin-ingress
   namespace: frontend
-  cert-manager.io/cluster-issuer: letsencrypt-staging
 spec:
   host: admin.funiverse.world
+  tls:
+    secretName: my-tls-secret
   upstreams:
   - name: service
     service: web-admin
