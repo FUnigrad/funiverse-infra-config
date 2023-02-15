@@ -1,0 +1,16 @@
+apiVersion: k8s.nginx.org/v1
+kind: VirtualServer
+metadata:
+  name: web-admin-ingress
+  namespace: frontend
+  cert-manager.io/cluster-issuer: letsencrypt-staging
+spec:
+  host: admin.funiverse.world
+  upstreams:
+  - name: service
+    service: web-admin
+    port: 80
+  routes:
+  - path: /
+    action:
+      pass: service

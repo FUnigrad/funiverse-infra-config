@@ -1,0 +1,39 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: web-admin
+  namespace: frontend
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      type: frontend
+      name: web-admin
+  template:
+    metadata:
+      labels:
+        type: frontend
+        name: web-admin
+    spec:
+      containers:
+      - name: web-admin
+        image: funiverse/funiverse-web-admin:latest
+        ports:
+        - containerPort: 80
+---
+apiVersion: v1
+kind: Service
+metadata:
+  name: web-admin
+  namespace: frontend
+spec:
+  type: LoadBalancer
+  ports:
+  - port: 80
+    targetPort: 80
+    protocol: TCP
+    name: http
+  selector:
+    type: frontend
+    name: web-admin
+
