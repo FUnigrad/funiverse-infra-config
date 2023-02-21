@@ -1,0 +1,17 @@
+apiVersion: k8s.nginx.org/v1
+kind: VirtualServer
+metadata:
+  name: app-service-ingress
+  namespace: dev
+spec:
+  host: dev.funiverse.world
+  # tls:
+  #   secretName: my-tls-secret
+  upstreams:
+  - name: app-service
+    service: app-service
+    port: 8080
+  routes:
+  - path: /
+    action:
+      pass: app-service

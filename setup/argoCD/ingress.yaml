@@ -1,17 +1,17 @@
 apiVersion: k8s.nginx.org/v1
 kind: VirtualServer
 metadata:
-  name: web-admin-ingress
-  namespace: frontend
+  name: argocd-server-ingress
+  namespace: argocd
 spec:
-  host: admin.funiverse.world
+  host: argocd.admin.funiverse.world
   # tls:
   #   secretName: my-tls-secret
   upstreams:
-  - name: service
-    service: web-admin
+  - name: argocd
+    service: argocd-server
     port: 80
   routes:
   - path: /
     action:
-      pass: service
+      pass: argocd

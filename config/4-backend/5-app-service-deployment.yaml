@@ -1,0 +1,63 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: app-service
+  namespace: dev
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      type: service
+      name: app-service
+  template:
+    metadata:
+      labels:
+        type: service
+        name: app-service
+    spec:
+      containers:
+      - name: web-admin
+        image: funiverse/app-service:FUN-192
+        imagePullPolicy : Always
+        ports:
+        - containerPort: 8080
+        env:
+          - name: SPRING_DATASOURCE_URL
+            valueFrom:
+              configMapKeyRef:
+                name: config
+                key: SPRING_DATASOURCE_URL
+          - name: SPRING_DATASOURCE_USERNAME
+            valueFrom:
+              configMapKeyRef:
+                name: config
+                key: SPRING_DATASOURCE_USERNAME
+          - name: SPRING_DATASOURCE_PASSWORD
+            valueFrom:
+              configMapKeyRef:
+                name: config
+                key: MYSQL_ROOT_PASSWORD
+          - name: SPRING_JPA_HIBERNATE_DDL_AUTO
+            valueFrom:
+              configMapKeyRef:
+                name: config
+                key: SPRING_JPA_HIBERNATE_DDL_AUTO
+          - name: SPRING_PROFILES_ACTIVE
+            value: deploy
+---
+apiVersion: v1
+kind: Service
+metadata:
+  name: app-service
+  namespace: dev
+spec:
+  type: LoadBalancer
+  ports:
+  - port: 8080
+    targetPort: 8080
+    protocol: TCP
+    name: http
+  selector:
+    type: service
+    name: app-service
+
