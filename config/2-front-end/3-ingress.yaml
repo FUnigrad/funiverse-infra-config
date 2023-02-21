@@ -8,10 +8,10 @@ spec:
   # tls:
   #   secretName: my-tls-secret
   upstreams:
-  - name: service
+  - name: web-admin
     service: web-admin
     port: 80
   routes:
   - path: /
     action:
-      pass: service
+      pass: web-admin

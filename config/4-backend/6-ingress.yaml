@@ -1,17 +1,46 @@
 apiVersion: k8s.nginx.org/v1
 kind: VirtualServer
 metadata:
-  name: app-service-ingress
+  name: virtual-server
   namespace: dev
 spec:
   host: dev.funiverse.world
-  # tls:
-  #   secretName: my-tls-secret
+  routes:
+  - path: /
+    route: frontend/web-app
+  - path: ~ /api/?(.*)
+    route: dev/app-service
+--- 
+apiVersion: k8s.nginx.org/v1
+kind: VirtualServerRoute
+metadata:
+  name: app-service
+  namespace: dev
+spec:
+  host: dev.funiverse.world
   upstreams:
   - name: app-service
     service: app-service
     port: 8080
-  routes:
+  subroutes:
+  - path: ~ /api/?(.*)
+    action:
+      proxy:
+        upstream: app-service
+        rewritePath: /$1
+---
+apiVersion: k8s.nginx.org/v1
+kind: VirtualServerRoute
+metadata:
+  name: web-app
+  namespace: frontend
+spec:
+  host: dev.funiverse.world
+  upstreams:
+  - name: web-app
+    service: web-app
+    port: 80
+  subroutes:
   - path: /
     action:
-      pass: app-service
+      pass: web-app
