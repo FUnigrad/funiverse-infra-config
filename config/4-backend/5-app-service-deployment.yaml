@@ -42,8 +42,6 @@ spec:
               configMapKeyRef:
                 name: config
                 key: SPRING_JPA_HIBERNATE_DDL_AUTO
-          - name: SPRING_PROFILES_ACTIVE
-            value: deploy
 ---
 apiVersion: v1
 kind: Service
@@ -57,6 +55,7 @@ spec:
     targetPort: 8080
     protocol: TCP
     name: http
+    nodePort: 30000
   selector:
     type: service
     name: app-service
