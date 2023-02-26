@@ -4,7 +4,14 @@ metadata:
   name: app-service
   namespace: dev
 spec:
-  replicas: 1
+  replicas: 2
+  revisionHistoryLimit: 0
+  minReadySeconds: 10
+  strategy:
+    type: RollingUpdate
+    rollingUpdate:
+      maxUnavailable: 1
+      maxSurge: 1
   selector:
     matchLabels:
       type: service
