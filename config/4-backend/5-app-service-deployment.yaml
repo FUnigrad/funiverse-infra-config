@@ -17,7 +17,7 @@ spec:
     spec:
       containers:
       - name: web-admin
-        image: funiverse/app-service@
+        image: funiverse/app-service@sha256:05a8aa5f108e8390ffcad9343a550915f277d60832c897b7dac32188f4dfd24e
         imagePullPolicy : Always
         ports:
         - containerPort: 8080
