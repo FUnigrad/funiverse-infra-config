@@ -1,0 +1,55 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: landingpage-web-app
+  namespace: frontend
+spec:
+  replicas: 1
+  revisionHistoryLimit: 0
+  selector:
+    matchLabels:
+      type: frontend
+      name: landingpage-web-app
+  template:
+    metadata:
+      labels:
+        type: frontend
+        name: landingpage-web-app
+    spec:
+      containers:
+      - name: application
+        image: httpd
+        ports:
+        - containerPort: 80
+---
+apiVersion: v1
+kind: Service
+metadata:
+  name: landingpage-web-app
+  namespace: frontend
+spec:
+  type: LoadBalancer
+  ports:
+  - port: 80
+    targetPort: 80
+    protocol: TCP
+    name: http
+  selector:
+    type: frontend
+    name: landingpage-web-app
+---
+apiVersion: k8s.nginx.org/v1
+kind: VirtualServer
+metadata:
+  name: landingpage-web-app-vs
+  namespace: frontend
+spec:
+  host: funiverse.world
+  upstreams:
+  - name: landingpage-web-app
+    service: landingpage-web-app
+    port: 80
+  routes:
+  - path: /
+    action:
+      pass: landingpage-web-app

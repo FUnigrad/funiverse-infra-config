@@ -1,46 +1,16 @@
 apiVersion: k8s.nginx.org/v1
 kind: VirtualServer
 metadata:
-  name: virtual-server
-  namespace: dev
-spec:
-  host: dev.funiverse.world
-  routes:
-  - path: /
-    route: frontend/web-app
-  - path: ~ /api/?(.*)
-    route: dev/app-service
---- 
-apiVersion: k8s.nginx.org/v1
-kind: VirtualServerRoute
-metadata:
-  name: app-service
-  namespace: dev
-spec:
-  host: dev.funiverse.world
-  upstreams:
-  - name: app-service
-    service: app-service
-    port: 8080
-  subroutes:
-  - path: ~ /api/?(.*)
-    action:
-      proxy:
-        upstream: app-service
-        rewritePath: /$1
----
-apiVersion: k8s.nginx.org/v1
-kind: VirtualServerRoute
-metadata:
-  name: web-app
+  name: admin-virtualserver
   namespace: frontend
 spec:
-  host: dev.funiverse.world
+  host: admin.dev.funiverse.world
   upstreams:
-  - name: web-app
-    service: web-app
+  - name: workspace-admin-web-app
+    service: workspace-admin-web-app
     port: 80
-  subroutes:
+  routes:
   - path: /
-    action:
-      pass: web-app
+    route:  frontend/workspace-admin-web-app-route
+  - path: ~ /api/?(.*)
+    route: dev/app-service-route
