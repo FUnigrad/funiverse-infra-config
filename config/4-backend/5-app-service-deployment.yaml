@@ -7,11 +7,6 @@ spec:
   replicas: 2
   revisionHistoryLimit: 0
   minReadySeconds: 10
-  strategy:
-    type: RollingUpdate
-    rollingUpdate:
-      maxUnavailable: 1
-      maxSurge: 1
   selector:
     matchLabels:
       type: service
@@ -23,9 +18,8 @@ spec:
         name: app-service
     spec:
       containers:
-      - name: web-admin
+      - name: application
         image: funiverse/app-service@sha256:eb5939681d06c2a24f7032b9c8f26c9ee1c2560d90a526faeca8e000677df059
-        imagePullPolicy : Always
         ports:
         - containerPort: 8080
         env:

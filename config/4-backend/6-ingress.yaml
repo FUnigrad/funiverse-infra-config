@@ -1,7 +1,7 @@
 apiVersion: k8s.nginx.org/v1
 kind: VirtualServer
 metadata:
-  name: admin-virtualserver
+  name: dev-admin-ingress
   namespace: frontend
 spec:
   host: admin.dev.funiverse.world
@@ -11,6 +11,37 @@ spec:
     port: 80
   routes:
   - path: /
-    route:  frontend/workspace-admin-web-app-route
-  - path: ~ /api/?(.*)
-    route: dev/app-service-route
+    action:
+      pass: workspace-admin-web-app
+--- 
+apiVersion: k8s.nginx.org/v1
+kind: VirtualServer
+metadata:
+  name: dev-workspace-ingress
+  namespace: frontend
+spec:
+  host: dev.funiverse.world
+  upstreams:
+  - name: workspace-web-app
+    service: workspace-web-app
+    port: 80
+  routes:
+  - path: /
+    action:
+      pass: workspace-web-app
+---
+apiVersion: k8s.nginx.org/v1
+kind: VirtualServer
+metadata:
+  name: dev-app-service-ingress
+  namespace: dev
+spec:
+  host: api.dev.funiverse.world
+  upstreams:
+  - name: app-service
+    service: app-service
+    port: 8080
+  routes:
+  - path: /
+    action:
+      pass: app-service
