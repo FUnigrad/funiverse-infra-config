@@ -1,0 +1,56 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: workspace-service
+  namespace: system
+spec:
+  replicas: 1
+  revisionHistoryLimit: 0
+  selector:
+    matchLabels:
+      type: service
+      name: workspace-service
+  template:
+    metadata:
+      labels:
+        type: service
+        name: workspace-service
+    spec:
+      containers:
+      - name: application
+        image: funiverse/workspace-service:lastest
+        ports:
+        - containerPort: 8080
+---
+apiVersion: v1
+kind: Service
+metadata:
+  name: workspace-service
+  namespace: system
+spec:
+  type: LoadBalancer
+  ports:
+  - port: 8080
+    targetPort: 8080
+    nodePort: 32000
+    protocol: TCP
+    name: http
+  selector:
+    type: service
+    name: workspace-service
+---
+apiVersion: k8s.nginx.org/v1
+kind: VirtualServer
+metadata:
+  name: workspace-service-vs
+  namespace: system
+spec:
+  host: system.funiverse.world
+  upstreams:
+  - name: workspace-service
+    service: workspace-service
+    port: 8080
+  routes:
+  - path: /
+    action:
+      pass: workspace-service
