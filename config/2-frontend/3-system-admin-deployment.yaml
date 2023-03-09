@@ -33,7 +33,7 @@ spec:
   - name: http
     port: 80
     targetPort: 80
-    nodePort: 31003
+    nodePort: 31001
   selector:
     type: frontend
     name: system-admin-web-app

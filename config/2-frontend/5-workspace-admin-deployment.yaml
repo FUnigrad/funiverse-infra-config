@@ -33,7 +33,7 @@ spec:
   - name: http
     port: 80
     targetPort: 80
-    nodePort: 31001
+    nodePort: 31003
   selector:
     type: frontend
     name: workspace-admin-web-app
