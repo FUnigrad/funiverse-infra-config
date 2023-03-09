@@ -28,12 +28,12 @@ metadata:
   name: system-admin-web-app
   namespace: frontend
 spec:
-  type: LoadBalancer
+  type: NodePort
   ports:
-  - port: 80
+  - name: http
+    port: 80
     targetPort: 80
-    protocol: TCP
-    name: http
+    nodePort: 31003
   selector:
     type: frontend
     name: system-admin-web-app

@@ -30,27 +30,10 @@ metadata:
 spec:
   type: LoadBalancer
   ports:
-  - port: 8080
+  - name: http 
+    port: 8080
     targetPort: 8080
-    nodePort: 32000
-    protocol: TCP
-    name: http
+    nodePort: 30002
   selector:
     type: service
     name: workspace-service
----
-apiVersion: k8s.nginx.org/v1
-kind: VirtualServer
-metadata:
-  name: workspace-service-vs
-  namespace: system
-spec:
-  host: system.funiverse.world
-  upstreams:
-  - name: workspace-service
-    service: workspace-service
-    port: 8080
-  routes:
-  - path: /
-    action:
-      pass: workspace-service
