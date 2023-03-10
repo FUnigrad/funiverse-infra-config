@@ -1,4 +1,5 @@
 1. Userdata
+###
 #!/bin/bash
 
 #Required package
@@ -31,15 +32,8 @@ rm /etc/containerd/config.toml
 systemctl restart containerd
 
 reboot
-
-kubectl port-forward --address 0.0.0.0 -n weave "$(kubectl get -n weave pod --selector=weave-scope-component=app -o jsonpath='{.items..metadata.name}')" 31000:4040
-
-172.31.3.116 worker1
-172.31.11.215 master
-
-2. SSH to server and rename
-ssh -i "C:\Users\yesiambao\OneDrive\2. Key\BaoNQ_CTA.pem" ubuntu@18.138.63.1
-
+###
+2. Change hostname
 sudo su -
 hostnamectl set-hostname <persistent-hostname>
 
