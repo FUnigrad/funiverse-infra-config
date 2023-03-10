@@ -1,0 +1,53 @@
+1. Userdata
+#!/bin/bash
+
+#Required package
+sudo apt-get update
+sudo apt-get install -y apt-transport-https ca-certificates curl
+sudo apt-get install -y gnupg lsb-release
+
+#Kubernetes
+sudo mkdir -p /etc/apt/keyrings
+sudo curl -fsSLo /etc/apt/keyrings/kubernetes-archive-keyring.gpg https://packages.cloud.google.com/apt/doc/apt-key.gpg
+echo "deb [signed-by=/etc/apt/keyrings/kubernetes-archive-keyring.gpg] https://apt.kubernetes.io/ kubernetes-xenial main" | sudo tee /etc/apt/sources.list.d/kubernetes.list
+sudo apt-get update
+sudo apt-get install -y kubelet=1.24.10-00 kubeadm=1.24.10-00 kubectl=1.24.10-00 
+sudo apt-mark hold kubelet kubeadm kubectl
+
+#Docker
+curl -fsSL https://download.docker.com/linux/ubuntu/gpg | sudo gpg --dearmor -o /etc/apt/keyrings/docker.gpg
+echo \
+"deb [arch=$(dpkg --print-architecture) signed-by=/etc/apt/keyrings/docker.gpg] https://download.docker.com/linux/ubuntu \
+$(lsb_release -cs) stable" | sudo tee /etc/apt/sources.list.d/docker.list > /dev/null
+
+sudo apt-get update
+sudo apt-get install -y docker-ce docker-ce-cli containerd.io docker-compose-plugin
+
+sudo systemctl enable docker.service
+sudo systemctl enable containerd.service
+sudo usermod -aG docker ubuntu
+sudo su -
+rm /etc/containerd/config.toml
+systemctl restart containerd
+
+reboot
+
+kubectl port-forward --address 0.0.0.0 -n weave "$(kubectl get -n weave pod --selector=weave-scope-component=app -o jsonpath='{.items..metadata.name}')" 31000:4040
+
+172.31.3.116 worker1
+172.31.11.215 master
+
+2. SSH to server and rename
+ssh -i "C:\Users\yesiambao\OneDrive\2. Key\BaoNQ_CTA.pem" ubuntu@18.138.63.1
+
+sudo su -
+hostnamectl set-hostname <persistent-hostname>
+
+3. Install network
+kubectl apply -f https://github.com/weaveworks/weave/releases/download/v2.8.1/weave-daemonset-k8s.yaml
+
+4. Install metallb controller
+
+kubectl apply -f https://raw.githubusercontent.com/metallb/metallb/v0.10.2/manifests/namespace.yaml
+kubectl apply -f https://raw.githubusercontent.com/metallb/metallb/v0.10.2/manifests/metallb.yaml
+
