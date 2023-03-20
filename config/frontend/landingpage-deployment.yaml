@@ -18,7 +18,7 @@ spec:
     spec:
       containers:
       - name: application
-        image: httpd
+        image: funiverse/funiverse-landing:latest
         ports:
         - containerPort: 80
 ---
