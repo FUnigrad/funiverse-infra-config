@@ -30,18 +30,18 @@ sudo usermod -aG docker ubuntu
 sudo su -
 rm /etc/containerd/config.toml
 systemctl restart containerd
-
-reboot
 ###
+
 2. Change hostname
 sudo su -
 hostnamectl set-hostname <persistent-hostname>
 
-3. Install network
-kubectl apply -f https://github.com/weaveworks/weave/releases/download/v2.8.1/weave-daemonset-k8s.yaml
+3. Bootstrapping cluster
+sudo kubeadm init
 
-4. Install metallb controller
+4. Untaint
+kubectl taint nodes --all node-role.kubernetes.io/master-
+kubectl taint nodes --all  node-role.kubernetes.io/control-plane-
 
-kubectl apply -f https://raw.githubusercontent.com/metallb/metallb/v0.10.2/manifests/namespace.yaml
-kubectl apply -f https://raw.githubusercontent.com/metallb/metallb/v0.10.2/manifests/metallb.yaml
+
 

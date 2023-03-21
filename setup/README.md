@@ -1,7 +1,7 @@
 # Setup Service For K8S cluster
 ## 1. K9S
 ```cmd
-wget https://github.com/derailed/k9s/releases/download/v0.27.3/k9s_Linux_arm.tar.gz
+wget https://github.com/derailed/k9s/releases/download/v0.27.3/k9s_Linux_amd64.tar.gz
 tar -xf k9s_Linux_amd64.tar.gz
 ```
 ## 2. [Weave Net](https://www.weave.works/docs/net/latest/kubernetes/kube-addon/)
