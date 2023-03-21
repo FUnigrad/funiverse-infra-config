@@ -26,8 +26,9 @@ kubectl apply -f metallb/config-address-pool.yaml
 ```
 ## 5. ArgoCD
 ```cmd
-./argoCD/setup.sh
-kubectl patch svc argocd-server -n argocd --patch-file ./argoCD/patch.yaml
+chmod 700 argoCD/setup.sh
+argoCD/setup.sh
+kubectl patch svc argocd-server -n argocd --patch-file argoCD/patch.yaml
 ```
 ## 6. Prometheus / Grafana 
 ## 7. cert-manager
