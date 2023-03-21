@@ -1,0 +1,62 @@
+apiVersion: argoproj.io/v1alpha1
+kind: Application
+metadata:
+  name:
+  namespace:  argocd
+spec:
+  destination:
+    namespace: frontend
+    server: https://kubernetes.default.svc
+  project: default
+  source:
+    directory:
+      jsonnet: {}
+      recurse: true
+    path: config/frontend
+    repoURL: https://github.com/FUnigrad/funiverse-infra-config
+    targetRevision: dev
+  syncPolicy:
+    automated:
+      prune: true
+---
+apiVersion: argoproj.io/v1alpha1
+kind: Application
+metadata:
+  name:
+  namespace:  argocd
+spec:
+  destination:
+    namespace: backend
+    server: https://kubernetes.default.svc
+  project: default
+  source:
+    directory:
+      jsonnet: {}
+      recurse: true
+    path: config/backend
+    repoURL: https://github.com/FUnigrad/funiverse-infra-config
+    targetRevision: dev
+  syncPolicy:
+    automated:
+      prune: true
+---
+apiVersion: argoproj.io/v1alpha1
+kind: Application
+metadata:
+  name:
+  namespace:  argocd
+spec:
+  destination:
+    namespace: system
+    server: https://kubernetes.default.svc
+  project: default
+  source:
+    directory:
+      jsonnet: {}
+      recurse: true
+    path: config/system
+    repoURL: https://github.com/FUnigrad/funiverse-infra-config
+    targetRevision: dev
+  syncPolicy:
+    automated:
+      prune: true
