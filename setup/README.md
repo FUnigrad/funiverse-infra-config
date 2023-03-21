@@ -2,7 +2,9 @@
 ## 1. K9S
 ```cmd
 wget https://github.com/derailed/k9s/releases/download/v0.27.3/k9s_Linux_amd64.tar.gz
-tar -xf k9s_Linux_amd64.tar.gz
+tar -xf k9s_Linux_amd64.tar.gz k9s
+sudo install k9s /usr/local/bin
+rm k9s_Linux_amd64.tar.gz k9s
 ```
 ## 2. [Weave Net](https://www.weave.works/docs/net/latest/kubernetes/kube-addon/)
 ```cmd
