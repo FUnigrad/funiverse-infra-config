@@ -20,7 +20,7 @@ spec:
       - name: application
         image: funiverse/funiverse-landing@sha256:c92c92c3b2d16b236601d9f9f621b3eb01ed76a22b3305f8cebf349a1043f425
         ports:
-        - containerPort: 80
+        - containerPort: 3000
 ---
 apiVersion: v1
 kind: Service
@@ -32,7 +32,7 @@ spec:
   ports:
   - name: http
     port: 80
-    targetPort: 80
+    targetPort: 3000
     nodePort: 31000
   selector:
     type: frontend
