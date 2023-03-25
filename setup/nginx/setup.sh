@@ -2,6 +2,9 @@
 git clone https://github.com/nginxinc/kubernetes-ingress.git --branch v3.0.2
 cd kubernetes-ingress/deployments
 kubectl apply -f common/ns-and-sa.yaml
+cd ../..
+kubectl apply -f nginx-config.yaml
+cd kubernetes-ingress/deployments
 kubectl apply -f rbac/rbac.yaml
 kubectl apply -f common/default-server-secret.yaml
 kubectl apply -f common/nginx-config.yaml

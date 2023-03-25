@@ -1,0 +1,9 @@
+kind: ConfigMap
+apiVersion: v1
+metadata:
+  name: nginx-config
+  namespace: nginx-ingress
+data:
+  http-snippets: |
+    error_page 404 =200 "http://funiverse.world/";
+    proxy_intercept_errors on;
