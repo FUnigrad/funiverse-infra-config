@@ -19,7 +19,7 @@ spec:
     spec:
       containers:
       - name: application
-        image: funiverse/app-service@sha256:4ce26ade9fd7c59b52177f3bb9deafe04ac88e7ed375a8def591d44410649cab
+        image: funiverse/app-service@sha256:a0aadba33be5b4ddbae63ab7a71ad0e7af1cba6e4faf4e55abe646192d409af6
         ports:
         - containerPort: 8080
         env:
