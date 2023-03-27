@@ -54,7 +54,23 @@ spec:
   - name: http 
     port: 8000
     targetPort: 8000
-    nodePort: 30001
+    # nodePort: 30001
   selector:
     type: service
     name: authen-service
+---
+apiVersion: k8s.nginx.org/v1
+kind: VirtualServer
+metadata:
+  name: authen-svc-vs
+  namespace: system
+spec:
+  host: authen.system.funiverse.world
+  upstreams:
+  - name: authen-service
+    service: authen-service
+    port: 8000
+  routes:
+  - path: /
+    action:
+      pass: authen-service
