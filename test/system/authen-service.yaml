@@ -1,0 +1,73 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: authen-service
+spec:
+  replicas: 1
+  revisionHistoryLimit: 0
+  selector:
+    matchLabels:
+      type: service
+      name: authen-service
+  template:
+    metadata:
+      labels:
+        type: service
+        name: authen-service
+    spec:
+      containers:
+      - name: application
+        image: funiverse/authen-service@sha256:d85a12569b68250a5a3ad17021f45e5bcbd12d68c98941b26d26cb567dee17dc
+        ports:
+        - containerPort: 8000
+        env:
+            - name: SPRING_DATASOURCE_URL
+              valueFrom:
+                configMapKeyRef:
+                  name: config
+                  key: SPRING_DATASOURCE_URL
+            - name: SPRING_DATASOURCE_USERNAME
+              valueFrom:
+                configMapKeyRef:
+                  name: config
+                  key: SPRING_DATASOURCE_USERNAME
+            - name: SPRING_DATASOURCE_PASSWORD
+              valueFrom:
+                configMapKeyRef:
+                  name: config
+                  key: MYSQL_ROOT_PASSWORD
+            - name: SPRING_JPA_HIBERNATE_DDL_AUTO
+              valueFrom:
+                configMapKeyRef:
+                  name: config
+                  key: SPRING_JPA_HIBERNATE_DDL_AUTO
+---
+apiVersion: v1
+kind: Service
+metadata:
+  name: authen-service
+spec:
+  type: LoadBalancer
+  ports:
+  - name: http 
+    port: 8000
+    targetPort: 8000
+    # nodePort: 30001
+  selector:
+    type: service
+    name: authen-service
+---
+apiVersion: k8s.nginx.org/v1
+kind: VirtualServer
+metadata:
+  name: authen-svc-vs
+spec:
+  host: authen.system.funiverse.world
+  upstreams:
+  - name: authen-service
+    service: authen-service
+    port: 8000
+  routes:
+  - path: /
+    action:
+      pass: authen-service
