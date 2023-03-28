@@ -10,6 +10,19 @@ spec:
   resources:
     requests:
       storage: 2Gi
+--- 
+apiVersion: v1
+kind: PersistentVolumeClaim
+metadata:
+  name: test-storage
+spec:
+  accessModes:
+    - ReadWriteOnce
+    # - ReadWriteMany
+  storageClassName: longhorn
+  resources:
+    requests:
+      storage: 2Gi
 ---
 kind: Pod
 apiVersion: v1

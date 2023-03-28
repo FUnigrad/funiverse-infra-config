@@ -49,12 +49,10 @@ metadata:
   name: authen-service
   namespace: system
 spec:
-  type: LoadBalancer
   ports:
   - name: http 
     port: 8000
     targetPort: 8000
-    # nodePort: 30001
   selector:
     type: service
     name: authen-service
