@@ -47,7 +47,7 @@ kind: Service
 metadata:
   name: authen-service
 spec:
-  type: LoadBalancer
+  # type: LoadBalancer
   ports:
   - name: http 
     port: 8000
