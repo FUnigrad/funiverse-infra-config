@@ -1,20 +1,7 @@
 apiVersion: v1
 kind: PersistentVolumeClaim
 metadata:
-  name: test-storage
-spec:
-  accessModes:
-    - ReadWriteOnce
-    # - ReadWriteMany
-  storageClassName: longhorn
-  resources:
-    requests:
-      storage: 2Gi
---- 
-apiVersion: v1
-kind: PersistentVolumeClaim
-metadata:
-  name: test-storage
+  name: longhorn-pvc-delete
 spec:
   accessModes:
     - ReadWriteOnce
@@ -30,13 +17,13 @@ metadata:
   name: pod-longhorn-delete
 spec:
   volumes:
-        - name: storage
+        - name: longhorn-pvc-delete
           persistentVolumeClaim:
-            claimName: test-storage
+            claimName: longhorn-pvc-delete
   containers:
     - name: my-container
       volumeMounts:
-        - name: storage # This is the name of the volume we set at the pod level
+        - name: longhorn-pvc-delete # This is the name of the volume we set at the pod level
           mountPath: /var/simple # Where to mount this directory in our container
 
       # Now that we have a directory mounted at /var/simple, let's

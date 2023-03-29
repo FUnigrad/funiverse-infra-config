@@ -25,6 +25,7 @@ logstashPipeline:
     output {
       elasticsearch {
         hosts => [ "elasticsearch-master:9200" ]
+        # index => "%{[fields][namespace]}"
       }
     }
 
@@ -278,14 +279,14 @@ service:
       targetPort: 8080
 
 ingress:
-  enabled: false
+  enabled: true
   annotations:
     {}
     # kubernetes.io/tls-acme: "true"
   className: "nginx"
   pathtype: ImplementationSpecific
   hosts:
-    - host: logstash-example.local
+    - host: logstash.admin.funiverse.world
       paths:
         - path: /beats
           servicePort: 5044

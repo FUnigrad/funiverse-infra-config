@@ -38,7 +38,24 @@ daemonset:
             matchers:
             - logs_path:
                 logs_path: "/var/log/containers/"
-
+        # - drop_event.when:
+        #     or:
+        #     - equals:
+        #       kubernetes.namespace: "kube-system"
+        #     - equals:
+        #       kubernetes.namespace: "kube-node-lease"
+        #     - equals:
+        #       kubernetes.namespace: "kube-public"
+        #     - equals:
+        #       kubernetes.namespace: "argocd"
+        #     - equals:
+        #       kubernetes.namespace: "default"
+        #     - equals:
+        #       kubernetes.namespace: "logging"
+        #     - equals:
+        #       kubernetes.namespace: "longhorn"
+        #     - equals:
+        #       kubernetes.namespace: "nginx-ingress"  
       output.logstash:
         hosts: [ "logstash-logstash:5044" ]
   # Only used when updateStrategy is set to "RollingUpdate"

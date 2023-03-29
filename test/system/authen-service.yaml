@@ -41,33 +41,30 @@ spec:
                 configMapKeyRef:
                   name: config
                   key: SPRING_JPA_HIBERNATE_DDL_AUTO
----
-apiVersion: v1
-kind: Service
-metadata:
-  name: authen-service
-spec:
-  # type: LoadBalancer
-  ports:
-  - name: http 
-    port: 8000
-    targetPort: 8000
-    # nodePort: 30001
-  selector:
-    type: service
-    name: authen-service
----
-apiVersion: k8s.nginx.org/v1
-kind: VirtualServer
-metadata:
-  name: authen-svc-vs
-spec:
-  host: authen.system.funiverse.world
-  upstreams:
-  - name: authen-service
-    service: authen-service
-    port: 8000
-  routes:
-  - path: /
-    action:
-      pass: authen-service
+            - name: LOGGING_FILE_PATH
+              value: /var/log
+              # valueFrom:
+              #   configMapKeyRef:
+              #     name: config
+              #     key: LOGGING_FILE_PATH
+            - name: LOGGING_FILE_NAME
+              value: myapp.log
+              # valueFrom:
+              #   configMapKeyRef:
+              #     name: config
+              #     key: LOGGING_FILE_PATH
+# ---
+# apiVersion: v1
+# kind: Service
+# metadata:
+#   name: authen-service
+# spec:
+#   # type: LoadBalancer
+#   ports:
+#   - name: http 
+#     port: 8000
+#     targetPort: 8000
+#     # nodePort: 30001
+#   selector:
+#     type: service
+#     name: authen-service
