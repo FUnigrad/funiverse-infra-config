@@ -1,0 +1,10 @@
+apiVersion: v1
+kind: Pod
+metadata:
+  name: curl
+  namespace: system
+spec:
+  containers:
+  - name: main
+    image: progrium/busybox
+    command: ["sleep", "9999999"]
