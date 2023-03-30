@@ -47,7 +47,7 @@ spec:
     spec:
       containers:
       - name: application
-        image: funiverse/workspace-service@sha256:bbce6d4d15fd8815b5eaecfc1a88d352f388c1ec6413d44589e446b5b27e8dff
+        image: funiverse/workspace-service@sha256:5cb482c3eec9564ff8014b6cd128603f05db70feaee4d05725e2ce86f5c4436e
         ports:
         - containerPort: 8080
 ---
