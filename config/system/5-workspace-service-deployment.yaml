@@ -50,6 +50,12 @@ spec:
         image: funiverse/workspace-service@sha256:e0111a7a91ad1aefd0480d1f1a42b526cb3e9a2bd2d031e2779d711f2fe70b34
         ports:
         - containerPort: 8080
+        livenessProbe:
+          httpGet: 
+            path: /
+            port: 8080
+          initialDelaySeconds: 3
+          periodSeconds: 3 
 ---
 apiVersion: v1
 kind: Service
