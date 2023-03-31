@@ -5,7 +5,7 @@ metadata:
   name: go-client
 rules:
   - apiGroups: [""]
-    resources: ["pods", "namespaces", "configmaps", "persistentvolumeclaims"]
+    resources: ["pods", "namespaces", "configmaps", "persistentvolumeclaims", "services"]
     verbs: ["get", "create", "delete"]
   - apiGroups: ["apps"]
     resources: ["deployments"]
