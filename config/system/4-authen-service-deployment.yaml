@@ -18,7 +18,7 @@ spec:
     spec:
       containers:
       - name: application
-        image: funiverse/authen-service@sha256:4ac3089cf61cce7837e26f5e832e46188ef3d62708603fc6435041aa1b0cce5a
+        image: funiverse/authen-service@sha256:b3aee28fe918f2c04687590be5f704b6fc4a4731e9cf821122996665d9fe5cca
         ports:
         - containerPort: 8000
         env:
