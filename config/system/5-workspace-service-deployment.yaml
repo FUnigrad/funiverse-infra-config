@@ -11,7 +11,7 @@ rules:
     resources: ["deployments"]
     verbs: ["get", "create", "delete"]
   - apiGroups: ["k8s.nginx.org"]
-    resources: ["VirtualServer"]
+    resources: ["virtualservers"]
     verbs: ["get", "create", "delete"]
 ---
 apiVersion: rbac.authorization.k8s.io/v1 
