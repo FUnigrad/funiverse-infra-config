@@ -72,3 +72,19 @@ spec:
   selector:
     type: service
     name: workspace-service
+---
+apiVersion: k8s.nginx.org/v1
+kind: VirtualServer
+metadata:
+  name: authen-svc-vs
+  namespace: system
+spec:
+  host: workspace.system.funiverse.world
+  upstreams:
+  - name: workspace-service
+    service: workspace-service
+    port: 8080
+  routes:
+  - path: /
+    action:
+      pass: workspace-service
