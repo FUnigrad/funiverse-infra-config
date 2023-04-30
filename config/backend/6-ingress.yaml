@@ -5,6 +5,10 @@ metadata:
   namespace: frontend
 spec:
   host: admin.dev.funiverse.world
+  tls:
+    secret: admin-dev-funiverse-world-ssl
+    cert-manager:
+      cluster-issuer: letsencrypt-prod
   upstreams:
   - name: workspace-admin-web-app
     service: workspace-admin-web-app
@@ -21,6 +25,10 @@ metadata:
   namespace: frontend
 spec:
   host: dev.funiverse.world
+  tls:
+    secret: dev-funiverse-world-ssl
+    cert-manager:
+      cluster-issuer: letsencrypt-prod
   upstreams:
   - name: workspace-web-app
     service: workspace-web-app
@@ -37,6 +45,10 @@ metadata:
   namespace: dev
 spec:
   host: api.dev.funiverse.world
+  tls:
+    secret: api-dev-funiverse-world-ssl
+    cert-manager:
+      cluster-issuer: letsencrypt-prod
   upstreams:
   - name: app-service
     service: app-service

@@ -80,6 +80,10 @@ metadata:
   namespace: system
 spec:
   host: workspace.system.funiverse.world
+  tls:
+    secret: workspace-system-ssl
+    cert-manager:
+      cluster-issuer: letsencrypt-prod
   upstreams:
   - name: workspace-service
     service: workspace-service

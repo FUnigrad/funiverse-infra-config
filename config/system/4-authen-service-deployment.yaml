@@ -64,6 +64,10 @@ metadata:
   namespace: system
 spec:
   host: authen.system.funiverse.world
+  tls:
+    secret: authen-system-ssl
+    cert-manager:
+      cluster-issuer: letsencrypt-prod
   upstreams:
   - name: authen-service
     service: authen-service
