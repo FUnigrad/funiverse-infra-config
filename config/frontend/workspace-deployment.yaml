@@ -17,7 +17,7 @@ spec:
     spec:
       containers:
       - name: application
-        image: funiverse/funiverse-web-app@sha256:fdb0124c22c6d5e9de3e3ffe711af1b5af480041aa1fc4f27d62edc73585f8dd
+        image: funiverse/funiverse-web-app@sha256:29434d35eb554b65124acc33c05d94b863459433656194152ecc0d15d88ee19c
         ports:
         - containerPort: 3000
 ---
