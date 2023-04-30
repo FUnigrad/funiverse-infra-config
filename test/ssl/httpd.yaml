@@ -1,0 +1,56 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: httpd
+spec:
+  selector:
+    matchLabels:
+      run: httpd
+  replicas: 1
+  template:
+    metadata:
+      labels:
+        run: httpd
+    spec:
+      containers:
+      - name: application
+        image: httpd
+        ports:
+        - containerPort: 80
+---
+apiVersion: v1
+kind: Service
+metadata:
+  name: httpd
+spec:
+  ports:
+  - name: http
+    port: 80
+  selector:
+    run: httpd
+---
+apiVersion: k8s.nginx.org/v1
+kind: VirtualServer
+metadata:
+  name: httpd-vs
+  annotations:
+    cert-manager.io/issue-temporary-certificate: "true"
+    acme.cert-manager.io/http01-edit-in-place: "true" 
+spec:
+  host: httpd.funiverse.world
+  tls:
+    secret: httpd-secret
+    redirect:
+      enable: true
+      code: 301
+      basedOn: scheme
+    cert-manager:
+      cluster-issuer: example-issuer
+  upstreams:
+  - name: httpd
+    service: httpd
+    port: 80
+  routes:
+  - path: /
+    action:
+      pass: httpd
