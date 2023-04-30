@@ -1,1 +1,2 @@
 **/kubernetes-ingress/
+test/ssl/cert.yaml
