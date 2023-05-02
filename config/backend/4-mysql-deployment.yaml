@@ -32,11 +32,16 @@ spec:
         volumeMounts:
         - name: mysql-persistent-storage
           mountPath: /var/lib/mysql
+        - name: conf
+          mountPath: /etc/mysql/conf.d
 
       volumes:
       - name: mysql-persistent-storage
         persistentVolumeClaim:
           claimName: mysql-volume
+      - name: conf
+        configMap:
+          name: mysql
 ---
 apiVersion: v1
 kind: Service
