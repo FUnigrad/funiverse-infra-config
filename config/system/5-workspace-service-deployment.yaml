@@ -47,7 +47,7 @@ spec:
     spec:
       containers:
       - name: application
-        image: funiverse/workspace-service@sha256:7d7dc42d78db086cb693db9f3129cb349b88cee379304c60b3fd384c369c461a
+        image: funiverse/workspace-service@sha256:e9c13160808936c4eb204fb5d8a3d64d86c82c6fb65b88de1691a7658165cd0a
         ports:
         - containerPort: 8080
         # livenessProbe:
