@@ -45,10 +45,12 @@ metadata:
   namespace: frontend
 spec:
   host: funiverse.world
-  # tls:
-  #   secret: funiverse-world-ssl
-  #   cert-manager:
-  #     cluster-issuer: letsencrypt-prod
+  tls:
+    secret: funiverse-world-ssl
+    cert-manager:
+      issuer: prod-issuer
+      issuer-kind: OriginIssuer
+      issuer-group: cert-manager.k8s.cloudflare.com
   upstreams:
   - name: landingpage-web-app
     service: landingpage-web-app

@@ -6,21 +6,43 @@ metadata:
 type: Opaque
 stringData:
   api-token: jugtRIBXeFN5N2TfAkmCasng7Dh0wdK8X2oCmrfz
+# ---
+# apiVersion: cert-manager.io/v1
+# kind: ClusterIssuer
+# metadata:
+#   name: letsencrypt-prod
+#   namespace: cert-manager
+# spec:
+#   acme:
+#     # The ACME server URL
+#     server: https://acme-v02.api.letsencrypt.org/directory
+#     # Email address used for ACME registration
+#     email: nqbao11.01@gmail.com
+#     # Name of a secret used to store the ACME account private key
+#     privateKeySecretRef:
+#       name: letsencrypt-prod
+
+#     solvers:
+#     - dns01:
+#         cloudflare:
+#           apiTokenSecretRef:
+#             name: cloudflare-api-token-secret
+#             key: api-token
 ---
 apiVersion: cert-manager.io/v1
 kind: ClusterIssuer
 metadata:
-  name: letsencrypt-prod
+  name: letsencrypt-stag
   namespace: cert-manager
 spec:
   acme:
     # The ACME server URL
-    server: https://acme-v02.api.letsencrypt.org/directory
+    server: https://acme-staging-v02.api.letsencrypt.org/directory
     # Email address used for ACME registration
     email: nqbao11.01@gmail.com
     # Name of a secret used to store the ACME account private key
     privateKeySecretRef:
-      name: letsencrypt-prod
+      name: letsencrypt-stag
 
     solvers:
     - dns01:
