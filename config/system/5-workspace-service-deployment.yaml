@@ -47,7 +47,7 @@ spec:
     spec:
       containers:
       - name: application
-        image: funiverse/workspace-service@sha256:e9c13160808936c4eb204fb5d8a3d64d86c82c6fb65b88de1691a7658165cd0a
+        image: funiverse/workspace-service:latest
         ports:
         - containerPort: 8080
         # livenessProbe:
@@ -80,10 +80,10 @@ metadata:
   namespace: system
 spec:
   host: workspace.system.funiverse.world
-  tls:
-    secret: workspace-system-ssl
-    cert-manager:
-      cluster-issuer: letsencrypt-prod
+  # tls:
+  #   secret: workspace-system-ssl
+  #   cert-manager:
+  #     cluster-issuer: letsencrypt-prod
   upstreams:
   - name: workspace-service
     service: workspace-service

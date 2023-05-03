@@ -18,7 +18,7 @@ spec:
     spec:
       containers:
       - name: application
-        image: funiverse/authen-service@sha256:812309ec0d99dad7538c86e2277a90c5b44026f240ba09afc84926bab051ce4f
+        image: funiverse/authen-service:latest
         ports:
         - containerPort: 8000
         env:
@@ -64,10 +64,10 @@ metadata:
   namespace: system
 spec:
   host: authen.system.funiverse.world
-  tls:
-    secret: authen-system-ssl
-    cert-manager:
-      cluster-issuer: letsencrypt-prod
+  # tls:
+  #   secret: authen-system-ssl
+  #   cert-manager:
+  #     cluster-issuer: letsencrypt-prod
   upstreams:
   - name: authen-service
     service: authen-service
