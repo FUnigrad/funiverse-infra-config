@@ -48,9 +48,7 @@ spec:
   tls:
     secret: funiverse-world-ssl
     cert-manager:
-      issuer: prod-issuer
-      issuer-kind: OriginIssuer
-      issuer-group: cert-manager.k8s.cloudflare.com
+      cluster-issuer: letsencrypt-prod
   upstreams:
   - name: landingpage-web-app
     service: landingpage-web-app

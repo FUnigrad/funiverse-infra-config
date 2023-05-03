@@ -59,3 +59,23 @@ spec:
   - path: /
     action:
       pass: kuard
+---
+apiVersion: cert-manager.k8s.cloudflare.com/v1
+kind: OriginIssuer
+metadata:
+  name: prod-issuer
+  namespace: test
+spec:
+  requestType: OriginECC
+  auth:
+    serviceKeyRef:
+      name: service-key
+      key: key
+---
+apiVersion: v1
+data:
+  key: djEuMC1hMzMzNWRmM2I2ZWMxNThhMTU3ZTRkMzQtMjAzNGY3NmI1MmQ3YzZiZGM0NDE2ODQ5NGY2YjNjMDM3MTYwMWIxYThjYjFiMjQ5OWMwODIxMDEzMjNiMTQ4NWFlZGE0ODExMTc4NDFkODZkNjRlZjA2NTMxYTc2ZjRjNWRmNzFjOWFlZDNhYzI1ZThhMmEwNmZiMTAyNjJmNDEwYzAzNmUwZTk3ZjBiYTgyYjQ=
+kind: Secret
+metadata:
+  name: service-key
+  namespace: test
