@@ -9,3 +9,21 @@ data:
   SPRING_DATASOURCE_URL: jdbc:mysql://mysql:3306/mydb
   SPRING_DATASOURCE_USERNAME: root
   SPRING_JPA_HIBERNATE_DDL_AUTO: update
+
+---
+apiVersion: v1
+kind: ConfigMap
+metadata:
+  name: mysql
+  namespace: system
+data:
+  custom.cnf: |
+    [client]
+    default-character-set=utf8mb4
+    [mysql]
+    default-character-set=utf8mb4
+
+    [mysqld]
+    collation-server = utf8mb4_unicode_520_ci
+    init-connect='SET NAMES utf8mb4'
+    character-set-server = utf8mb4
