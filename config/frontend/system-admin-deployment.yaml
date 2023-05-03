@@ -44,10 +44,10 @@ metadata:
   namespace: frontend
 spec:
   host: admin.funiverse.world
-  tls:
-    secret: admin-funiverse-world-ssl
-    cert-manager:
-      cluster-issuer: letsencrypt-prod
+  # tls:
+  #   secret: admin-funiverse-world-ssl
+  #   cert-manager:
+  #     cluster-issuer: letsencrypt-prod
   upstreams:
   - name: system-admin-web-app
     service: system-admin-web-app
